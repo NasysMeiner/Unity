@@ -10,7 +10,7 @@ public class Wallet : MonoBehaviour
     {
         if (collision.TryGetComponent(out Money money))
         {
-            Debug.Log(++_coin);
+            _coin++;
         }
     }
 }
