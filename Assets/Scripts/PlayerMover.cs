@@ -78,7 +78,7 @@ public class PlayerMover : MonoBehaviour
         {
             if (_isGround)
             {
-                _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 1 * _jumpPower); 
+                _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _jumpPower); 
             }           
         }
     }
