@@ -3,23 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _transforms;
+    [SerializeField] private Transform _path;
     [SerializeField] private float _speed;
     [SerializeField] private bool _isAnimation;
 
     private Transform _positionTwo;
     private SpriteRenderer _spriteRenderer;
+    private Transform[] _points;
     private int _point = 0;
     private float _startSpeed;
 
     private void Start()
     {
-        _startSpeed = _speed;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _positionTwo = _transforms[_point].transform;
+        _startSpeed = _speed;
+        _points = new Transform[_path.childCount];
+
+        for (int i = 0; i < _path.childCount; i++)
+        {
+            _points[i] = _path.GetChild(i);
+        }
+
+        _positionTwo = _points[_point].transform;
     }
 
     private void Update()
@@ -30,12 +39,12 @@ public class Enemy : MonoBehaviour
         {
             _point++;
 
-            if (_point >= _transforms.Length)
+            if (_point >= _points.Length)
             {
                 _point = 0;
             }
 
-            _positionTwo = _transforms[_point].transform;
+            _positionTwo = _points[_point].transform;
         }
 
         if (_isAnimation)
